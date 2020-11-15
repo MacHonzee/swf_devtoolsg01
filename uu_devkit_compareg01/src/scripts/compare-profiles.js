@@ -1,6 +1,11 @@
+const { UuAppModelKit, UuCommand } = require("../core/uu-app-model-kit");
+
 class CompareProfiles {
-  process() {
-    console.log("Comparing profiles from inner script");
+  async process() {
+    // await UuAppModelKit.getSubAppAttributes();
+
+    let cmd = await UuCommand.getByName("hexagon/create");
+    console.log(await cmd.getProfiles());
   }
 }
 

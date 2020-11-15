@@ -3,6 +3,6 @@ module.exports = {
   profiles: require("./compare-profiles.js"),
   errors: require("./compare-errors.js"),
   daos: require("./compare-daos.js"),
-  mappings: require("./compare-mapings.js"),
+  mappings: require("./compare-mappings.js"),
   validations: require("./compare-validations.js"),
 };

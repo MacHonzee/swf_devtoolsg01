@@ -19,41 +19,33 @@ process.env.NPM_CONFIG_UPDATE_NOTIFIER = "0";
 
 // all commands for yargs
 const Commands = {
-  profiles:
-    "Compares profiles.json (and metamodel.json, if it exists) with uuAppModelKit command profiles.",
+  profiles: "Compares profiles.json (and metamodel.json, if it exists) with uuAppModelKit command profiles.",
   errors:
     "Compares errors and warnings from api folder with uuAppModelKit command errors and warnings from algorithm component.",
-  daos:
-    "Compares persistence config, indexes, limits and dao methods with design from uuAppModelKit.",
-  mappings:
-    "Compares command use cases and method types with uuAppModelKit commands.",
-  validations:
-    "Compares validation types of uuCommands in implementation and design.",
+  daos: "Compares persistence config, indexes, limits and dao methods with design from uuAppModelKit.",
+  mappings: "Compares command use cases and method types with uuAppModelKit commands.",
+  validations: "Compares validation types of uuCommands in implementation and design.",
 };
 let allKeys = Object.keys(Commands);
-Commands.all =
-  "Compares implementation and design of all these parts: " +
-  allKeys.join(", ");
+Commands.all = "Compares implementation and design of all these parts: " + allKeys.join(", ");
 
 function runScript(scriptName) {
-  return function () {
+  return async function () {
     let ScriptClass = Scripts[scriptName];
     if (!ScriptClass) {
-      return console.error(
-        `There is an implementation error, scriptName ${scriptName} was not found. Contact support.`
-      );
+      throw new Error(`There is an implementation error, scriptName ${scriptName} was not found. Contact support.`);
     }
-    return new ScriptClass().process();
+    await new ScriptClass().process();
   };
 }
 
 Object.keys(Commands).forEach((cmdName) => {
-  yargs.command(cmdName, Commands[cmdName], runScript(cmdName));
+  yargs.command(cmdName, Commands[cmdName], {}, runScript(cmdName));
 });
 
 yargs
   .demandCommand(2, "Must provide a valid command!") // TODO Needs 2 instead of 1 due to some bug in yargs.
-  .showHelpOnFail(true)
+  .showHelpOnFail(false)
   .help("help")
   .alias("h", "help")
   .version(false)

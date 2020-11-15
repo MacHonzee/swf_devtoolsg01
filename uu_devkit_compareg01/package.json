@@ -27,7 +27,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "node ./src/scripts/postinstall.js",
-    "compareDoc": "uu_devkit_compareg01"
+    "prettify": "prettier --write src/**/*.js"
   },
   "files": [
     "bin",
@@ -38,5 +38,8 @@
   "license": "ISC",
   "bin": {
     "uu_devkit_compareg01": "./bin/uu_devkit_compareg01.js"
+  },
+  "prettier": {
+    "printWidth": 120
   }
 }
