@@ -14,7 +14,7 @@ class UuCommand {
 
   // TODO check if current Jest config supports this syntax, it might not
   static _list = null;
-  static _commandMap = {};
+  static _commandMap = null;
 
   static async list() {
     if (this._list) return this._list;
@@ -29,6 +29,12 @@ class UuCommand {
       return map;
     }, {});
     return this._list;
+  }
+
+  static async getCommandMap() {
+    if (this._commandMap) return this._commandMap;
+    await this.list();
+    return this._commandMap;
   }
 
   static async getByName(name) {

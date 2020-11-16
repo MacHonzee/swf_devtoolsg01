@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 const shell = require("shelljs");
 const yargs = require("yargs");
-const Scripts = require("../src/scripts");
+const CompareScripts = require("../src/scripts/compare-scripts");
 
 // copy pasted from devkit
 // throw error whenever shell command fails
@@ -31,7 +31,7 @@ Commands.all = "Compares implementation and design of all these parts: " + allKe
 
 function runScript(scriptName) {
   return async function () {
-    let ScriptClass = Scripts[scriptName];
+    let ScriptClass = CompareScripts[scriptName];
     if (!ScriptClass) {
       throw new Error(`There is an implementation error, scriptName ${scriptName} was not found. Contact support.`);
     }

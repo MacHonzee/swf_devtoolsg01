@@ -18,6 +18,24 @@ const MetamodelJson = {
       }
     }
   },
+
+  getUcProfileMap() {
+    let mmdJson = this.load();
+    if (!mmdJson) return;
+
+    const appCode = mmdJson.code;
+    const mmdProfiles = mmdJson.profileList.map((prof) => prof.code);
+    let ucMap = {};
+    Object.entries(mmdJson.useCaseProfileMap).forEach(([fullUc, profileString]) => {
+      if (!fullUc.includes(appCode)) return;
+
+      const uc = fullUc.replace(appCode + "/", "");
+      const ucProfiles = [];
+      profileString.split("").forEach((char, i) => char === "1" && ucProfiles.push(mmdProfiles[i]));
+      ucMap[uc] = ucProfiles;
+    });
+    return ucMap;
+  },
 };
 
 module.exports = MetamodelJson;
