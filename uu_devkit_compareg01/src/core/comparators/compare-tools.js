@@ -4,7 +4,7 @@ const CompareTools = {
   getArraysDiff(...arrays) {
     let differences = new Set();
     for (let i = 0; i < arrays.length; i++) {
-      let secondIndex = i === arrays.length - 1 ? i + 1 : 0; // compare with next array, or last array with first
+      let secondIndex = i === arrays.length - 1 ? 0 : i + 1; // compare with next array, or last array with first
       let firstArr = arrays[i];
       let secondArr = arrays[secondIndex];
       firstArr.forEach((val) => secondArr.indexOf(val) === -1 && differences.add(val));

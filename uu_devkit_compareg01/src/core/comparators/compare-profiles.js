@@ -9,9 +9,9 @@ const NonProfileItems = new Set(["AwidLicenseOwner", "Public", "AwidOwner"]);
 async function mapAppModelKit() {
   let mmdCommands = await UuCommand.getCommandMap();
   let ucMap = {};
-  Object.keys(mmdCommands).forEach((uc) => {
-    ucMap[uc] = mmdCommands[uc].getProfiles();
-  });
+  for (let uc of Object.keys(mmdCommands)) {
+    ucMap[uc] = await mmdCommands[uc].getProfiles();
+  }
   return ucMap;
 }
 
@@ -54,7 +54,7 @@ function compareUseCaseLists(ucProfileMap) {
   let ucInequals = CompareTools.getArraysDiff(profilesJsonList, appModelKitList, metamodelList);
   if (ucInequals.length > 0) {
     console.log(chalk.red.underline.bold("Use case list does not match!"));
-    console.log("Application use cases:      " + CompareTools.highlightDiff(profilesJsonList, ucInequals));
+    console.log("Profiles.json use cases:    " + CompareTools.highlightDiff(profilesJsonList, ucInequals));
     console.log("uuAppModelKit use cases:    " + CompareTools.highlightDiff(appModelKitList, ucInequals));
     if (metamodelList) {
       console.log("Metamodel use cases:      " + CompareTools.highlightDiff(metamodelList, ucInequals));
@@ -77,13 +77,13 @@ function compareUcProfileLists(ucProfileMap) {
   const allUcList = getAllUcList(ucProfileMap);
   let { profilesJson, appModelKit, metamodel } = ucProfileMap;
   allUcList.forEach((appUc) => {
-    let appUcProfiles = profilesJson[appUc] ? profilesJson[appUc].profileList : [];
-    let mmdUcProfiles = metamodel[appUc] ? metamodel[appUc].profileList : [];
-    let appKitUcProfiles = appModelKit[appUc] ? appModelKit[appUc].profileList : [];
+    let appUcProfiles = profilesJson[appUc] || [];
+    let mmdUcProfiles = (metamodel && metamodel[appUc]) || [];
+    let appKitUcProfiles = appModelKit[appUc] || [];
     let ucInequals = CompareTools.getArraysDiff(appUcProfiles, mmdUcProfiles, appKitUcProfiles);
     if (ucInequals.length > 0) {
       console.log(chalk.red.underline.bold("Differences found for use case: " + appUc));
-      console.log("Application use case profiles:    " + CompareTools.highlightDiff(appUcProfiles, ucInequals));
+      console.log("Profiles.json use case profiles:  " + CompareTools.highlightDiff(appUcProfiles, ucInequals));
       if (metamodel) {
         console.log("Metamodel use case profiles:      " + CompareTools.highlightDiff(mmdUcProfiles, ucInequals));
       }
