@@ -42,7 +42,11 @@ class UuCommand {
     return this._commandMap[name];
   }
 
-  async getProfiles() {
+  getAttributes() {
+    return this._attributes;
+  }
+
+  getProfiles() {
     return this._attributes.uuAppProfileRelatedList;
   }
 

@@ -6,11 +6,17 @@ const CompareTools = require("./compare-tools");
 
 const NonProfileItems = new Set(["AwidLicenseOwner", "Public", "AwidOwner"]);
 
+const UcMapMessages = {
+  profilesJson: "Profiles.json use cases:    ",
+  appModelKit: "uuAppModelKit use cases:    ",
+  metamodel: "Metamodel use cases:        ",
+};
+
 async function mapAppModelKit() {
   let mmdCommands = await UuCommand.getCommandMap();
   let ucMap = {};
   for (let uc of Object.keys(mmdCommands)) {
-    ucMap[uc] = await mmdCommands[uc].getProfiles();
+    ucMap[uc] = mmdCommands[uc].getProfiles();
   }
   return ucMap;
 }
@@ -46,35 +52,8 @@ function compareProfileLists(ucProfileMap) {
   }
 }
 
-function compareUseCaseLists(ucProfileMap) {
-  let profilesJsonList = Object.keys(ucProfileMap.profilesJson).sort();
-  let appModelKitList = Object.keys(ucProfileMap.appModelKit).sort();
-  let metamodelList = Object.keys(ucProfileMap.metamodel).sort();
-
-  let ucInequals = CompareTools.getArraysDiff(profilesJsonList, appModelKitList, metamodelList);
-  if (ucInequals.length > 0) {
-    console.log(chalk.red.underline.bold("Use case list does not match!"));
-    console.log("Profiles.json use cases:    " + CompareTools.highlightDiff(profilesJsonList, ucInequals));
-    console.log("uuAppModelKit use cases:    " + CompareTools.highlightDiff(appModelKitList, ucInequals));
-    if (metamodelList) {
-      console.log("Metamodel use cases:      " + CompareTools.highlightDiff(metamodelList, ucInequals));
-    }
-    console.log("\n");
-  } else {
-    console.log(chalk.green("Use case list matches."));
-  }
-}
-
-function getAllUcList(ucProfileMap) {
-  let allUcList = new Set();
-  Object.values(ucProfileMap).forEach((ucMap) => {
-    Object.keys(ucMap).forEach((uc) => allUcList.add(uc));
-  });
-  return Array.from(allUcList);
-}
-
 function compareUcProfileLists(ucProfileMap) {
-  const allUcList = getAllUcList(ucProfileMap);
+  const allUcList = CompareTools.getAllUcList(ucProfileMap);
   let { profilesJson, appModelKit, metamodel } = ucProfileMap;
   allUcList.forEach((appUc) => {
     let appUcProfiles = profilesJson[appUc] || [];
@@ -95,6 +74,8 @@ function compareUcProfileLists(ucProfileMap) {
 
 class CompareProfiles {
   async process() {
+    console.log("Checking profile differences.");
+
     // read all of profiles from all sources
     let ucProfileMap = {
       profilesJson: ProfileJson.getUcProfileMap(),
@@ -106,7 +87,7 @@ class CompareProfiles {
     compareProfileLists(ucProfileMap);
 
     // compare use case lists
-    compareUseCaseLists(ucProfileMap);
+    CompareTools.compareUseCaseLists(ucProfileMap, UcMapMessages);
 
     // compare profiles for each usecase
     compareUcProfileLists(ucProfileMap);

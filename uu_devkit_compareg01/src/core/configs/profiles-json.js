@@ -6,11 +6,17 @@ const FilePath = ["app", "config", "profiles.json"];
 
 const SkippedUcProfiles = ["defaultUve", "sys/uuAppWorkspace/initUve"];
 
-const ProfilesJson = {
+class ProfilesJson {
+  constructor() {
+    this._profilesJson = null;
+  }
+
   load() {
+    if (this._profilesJson) return this._profilesJson;
     let profileJsonPath = path.join(ServerRoot.root, ...FilePath);
-    return JSON.parse(fs.readFileSync(profileJsonPath));
-  },
+    this._profilesJson = JSON.parse(fs.readFileSync(profileJsonPath));
+    return this._profilesJson;
+  }
 
   getUcProfileMap() {
     let profileJson = this.load();
@@ -26,7 +32,7 @@ const ProfilesJson = {
       }
     });
     return ucMap;
-  },
-};
+  }
+}
 
-module.exports = ProfilesJson;
+module.exports = new ProfilesJson();
