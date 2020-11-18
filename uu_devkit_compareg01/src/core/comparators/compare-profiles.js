@@ -1,6 +1,6 @@
 const chalk = require("chalk");
-const ProfileJson = require("../configs/profiles-json");
-const MetamodelJson = require("../configs/metamodel-json");
+const ProfileJson = require("../source-codes/profiles-json");
+const MetamodelJson = require("../source-codes/metamodel-json");
 const { UuCommand } = require("../uu-app-model-kit");
 const CompareTools = require("./compare-tools");
 

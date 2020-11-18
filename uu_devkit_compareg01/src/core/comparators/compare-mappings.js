@@ -1,5 +1,5 @@
 const chalk = require("chalk");
-const MappingsJson = require("../configs/mappings-json");
+const MappingsJson = require("../source-codes/mappings-json");
 const { UuCommand } = require("../uu-app-model-kit");
 const CompareTools = require("./compare-tools");
 

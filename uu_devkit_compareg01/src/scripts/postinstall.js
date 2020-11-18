@@ -1,9 +1,11 @@
-const PackageJson = require("../core/configs/package-json");
+const PackageJson = require("../core/source-codes/package-json");
 
 const ScriptId = "compareDoc";
 const ScriptBin = "uu_devkit_compareg01";
 
 function postinstall() {
+  if (process.cwd().endsWith(ScriptBin)) return null; // do not do self-install
+
   let pkgJsonPath = PackageJson.findPkgJsonPath();
   if (!pkgJsonPath) {
     console.error(

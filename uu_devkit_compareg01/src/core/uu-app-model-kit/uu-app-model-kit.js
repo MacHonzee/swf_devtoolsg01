@@ -2,9 +2,9 @@ const OidcToken = require("../../../node_modules/uu_appg01_devkit-common/src/scr
 const { AppClient } = require("uu_appg01_core-appclient");
 const Uu5StringHelper = require("../helpers/uu5string-helper");
 const { normalizeCode } = require("../helpers/string-helper");
-const ServerRoot = require("../configs/server-root");
-const UuAppJson = require("../configs/uuapp-json");
-const CompareConfig = require("../configs/compare-config");
+const ServerRoot = require("../source-codes/server-root");
+const UuAppJson = require("../source-codes/uuapp-json");
+const CompareConfig = require("../source-codes/compare-config");
 const UuBookKit = require("../helpers/uu-book-kit");
 
 // TODO the constants below might be needed in compare-config

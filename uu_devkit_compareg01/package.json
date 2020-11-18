@@ -8,6 +8,7 @@
     "chalk": "^2.4.0",
     "uu_appg01_core-appclient": "^5.1.0",
     "uu_appg01_core-uri": "^5.1.0",
+    "uu_appg01_core-validation": "^5.1.0",
     "uu_appg01_devkit-common": "^3.1.0",
     "uu5stringg01": "^1.0.0",
     "yargs": "12.0.2",

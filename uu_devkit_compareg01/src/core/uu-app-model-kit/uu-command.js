@@ -1,5 +1,5 @@
 const UuAppModelKit = require("./uu-app-model-kit");
-const CompareConfig = require("../configs/compare-config");
+const CompareConfig = require("../source-codes/compare-config");
 
 // TODO add possiblity ty override in CompareConfig
 const ListUc = "uuCommand/list";
@@ -59,7 +59,7 @@ class UuCommand {
     // vrátí errory a warningy
   }
 
-  async getValidation() {
+  async getValidationType() {
     if (this._validation) return this._validation;
 
     // TODO

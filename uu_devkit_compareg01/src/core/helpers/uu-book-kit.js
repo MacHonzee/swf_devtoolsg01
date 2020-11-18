@@ -1,10 +1,10 @@
 const OidcToken = require("../../../node_modules/uu_appg01_devkit-common/src/scripts/oidc-token");
 const { AppClient } = require("uu_appg01_core-appclient");
 const { UriBuilder } = require("uu_appg01_core-uri");
-const ServerRoot = require("../configs/server-root");
-const PackageJson = require("../configs/package-json");
-const UuAppJson = require("../configs/uuapp-json");
-const CompareConfig = require("../configs/compare-config");
+const ServerRoot = require("../source-codes/server-root");
+const PackageJson = require("../source-codes/package-json");
+const UuAppJson = require("../source-codes/uuapp-json");
+const CompareConfig = require("../source-codes/compare-config");
 
 const DocumentationKey = "documentation";
 

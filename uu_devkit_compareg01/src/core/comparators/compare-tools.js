@@ -1,5 +1,23 @@
 const chalk = require("chalk");
 
+function compareLists(useCaseMap, msgConfig, msgHeader) {
+  let ucLists = {};
+  Object.keys(useCaseMap).forEach((ucTypeMap) => {
+    ucLists[ucTypeMap] = Object.keys(useCaseMap[ucTypeMap]).sort();
+  });
+  let ucInequals = CompareTools.getArraysDiff(...Object.values(ucLists));
+
+  if (ucInequals.length > 0) {
+    console.log(chalk.red.underline.bold(msgHeader + " does not match!"));
+    Object.keys(useCaseMap).forEach((ucTypeMap) => {
+      console.log(msgConfig[ucTypeMap] + CompareTools.highlightDiff(ucLists[ucTypeMap], ucInequals));
+    });
+    console.log("\n");
+  } else {
+    console.log(chalk.green(msgHeader + " matches."));
+  }
+}
+
 const CompareTools = {
   getArraysDiff(...arrays) {
     let differences = new Set();
@@ -25,21 +43,11 @@ const CompareTools = {
   },
 
   compareUseCaseLists(useCaseMap, msgConfig) {
-    let ucLists = {};
-    Object.keys(useCaseMap).forEach((ucTypeMap) => {
-      ucLists[ucTypeMap] = Object.keys(useCaseMap[ucTypeMap]).sort();
-    });
-    let ucInequals = CompareTools.getArraysDiff(...Object.values(ucLists));
+    compareLists(useCaseMap, msgConfig, "Use case list");
+  },
 
-    if (ucInequals.length > 0) {
-      console.log(chalk.red.underline.bold("Use case list does not match!"));
-      Object.keys(useCaseMap).forEach((ucTypeMap) => {
-        console.log(msgConfig[ucTypeMap] + CompareTools.highlightDiff(ucLists[ucTypeMap], ucInequals));
-      });
-      console.log("\n");
-    } else {
-      console.log(chalk.green("Use case list matches."));
-    }
+  compareValidationTypeLists(valTypesMap, msgConfig) {
+    compareLists(valTypesMap, msgConfig, "Validation types list");
   },
 
   getAllUcList(ucProfileMap) {
