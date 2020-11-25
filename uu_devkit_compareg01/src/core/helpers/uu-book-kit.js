@@ -1,3 +1,4 @@
+const readline = require("readline");
 const OidcToken = require("../../../node_modules/uu_appg01_devkit-common/src/scripts/oidc-token");
 const { AppClient } = require("uu_appg01_core-appclient");
 const { UriBuilder } = require("uu_appg01_core-uri");
@@ -49,8 +50,11 @@ class UuBookKit {
 
   async loadPage(pageCode) {
     if (this._pageDataCache[pageCode]) return this._pageDataCache[pageCode];
+    process.stdout.write("Loading data of uuBookKit page: " + pageCode);
     let client = await this.getAppClient();
     let loadPageReponse = await client.get(LoadPageUc, { code: pageCode });
+    readline.clearLine(process.stdout, 0);
+    readline.cursorTo(process.stdout, 0, null);
     this._pageDataCache[pageCode] = loadPageReponse.data;
     return this._pageDataCache[pageCode];
   }
