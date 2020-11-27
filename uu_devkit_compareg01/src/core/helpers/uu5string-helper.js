@@ -4,7 +4,7 @@ const Uu5StringHelper = {
   findComponent(uu5string, tagName) {
     // with the power of closure, component shall be found!
     let component = null;
-    function findAlgorithm(tag, propsString, children, isPairedTag, initFn, parent) {
+    function findComponentBuildFn(tag, propsString, children, isPairedTag, initFn, parent) {
       if (!tag) return children;
       let uu5StringObject = new Uu5String.Object(tag, propsString, children, isPairedTag, initFn, parent);
       if (tag === tagName) {
@@ -13,7 +13,7 @@ const Uu5StringHelper = {
       return uu5StringObject;
     }
 
-    Uu5String.parse(uu5string, { buildItemFn: findAlgorithm });
+    Uu5String.parse(uu5string, { buildItemFn: findComponentBuildFn });
     return component;
   },
 

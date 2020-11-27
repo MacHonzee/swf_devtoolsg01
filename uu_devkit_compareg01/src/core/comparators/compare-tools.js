@@ -50,6 +50,14 @@ const CompareTools = {
     compareLists(valTypesMap, msgConfig, "Validation types list");
   },
 
+  compareErrorLists(errorsMap, msgConfig) {
+    compareLists(errorsMap, msgConfig, "Errors list");
+  },
+
+  compareWarningLists(warningsMap, msgConfig) {
+    compareLists(warningsMap, msgConfig, "Warnings list");
+  },
+
   getAllUcList(ucProfileMap) {
     let allUcList = new Set();
     Object.values(ucProfileMap).forEach((ucMap) => {

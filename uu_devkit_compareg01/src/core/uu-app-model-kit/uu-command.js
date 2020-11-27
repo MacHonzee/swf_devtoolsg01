@@ -1,6 +1,7 @@
 const UuAppModelKit = require("./uu-app-model-kit");
 const CompareConfig = require("../source-codes/compare-config");
 const UuBookKit = require("../helpers/uu-book-kit");
+const Algorithm = require("../helpers/uu5-algorithm-helper");
 
 // TODO add possiblity ty override in CompareConfig
 const ListUc = "uuCommand/list";
@@ -16,6 +17,7 @@ class UuCommand {
     // caches for UuCommand instances
     this._attributes = attributes;
     this._errors = null;
+    this._warnings = null;
     this._validation = null;
   }
 
@@ -59,11 +61,14 @@ class UuCommand {
 
   async getErrors() {
     if (this._errors) return this._errors;
+    this._errors = await this._getErrorsOrWarnings("error");
+    return this._errors;
+  }
 
-    // TODO
-    // načte stránku z bookkitu (cached)
-    // zparsuje algorithm komponentu
-    // vrátí errory a warningy
+  async getWarnings() {
+    if (this._warnings) return this._warnings;
+    this._warnings = await this._getErrorsOrWarnings("warning");
+    return this._warnings;
   }
 
   async getValidationTypes() {
@@ -100,6 +105,17 @@ class UuCommand {
     }
 
     return this._validation;
+  }
+
+  // private
+
+  async _getErrorsOrWarnings(type) {
+    let pageCode = this.getAttributes().pageCode;
+    let pageData = await UuBookKit.loadPage(pageCode);
+    let algorithm = Algorithm.findInPage(pageData);
+    if (algorithm) {
+      return Algorithm.getErrorsOrWarnings(algorithm, type);
+    }
   }
 }
 
