@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const ValidationTypes = require("../source-codes/validation-types");
 const { UuCommand } = require("../uu-app-model-kit");
-const CompareTools = require("./compare-tools");
+const Tools = require("./tools");
 
 const ValTypesMapMessages = {
   appSource: "Application validation types:     ",
@@ -23,7 +23,7 @@ async function mapAppModelKit() {
 }
 
 function compareValidationTypes(valTypesMap) {
-  const allValidationsList = CompareTools.getAllUcList(valTypesMap);
+  const allValidationsList = Tools.getAllUcList(valTypesMap);
   let { appSource, appModelKit } = valTypesMap;
 
   allValidationsList.forEach((validation) => {
@@ -47,7 +47,7 @@ class CompareValidations {
       appModelKit: await mapAppModelKit(),
     };
 
-    CompareTools.compareValidationTypeLists(valTypesMap, ValTypesMapMessages);
+    Tools.compareValidationTypeLists(valTypesMap, ValTypesMapMessages);
 
     compareValidationTypes(valTypesMap);
 

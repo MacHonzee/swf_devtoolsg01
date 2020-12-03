@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const Errors = require("../source-codes/errors");
 const Warnings = require("../source-codes/warnings");
 const { UuCommand } = require("../uu-app-model-kit");
-const CompareTools = require("./compare-tools");
+const Tools = require("./tools");
 
 const ErrorsMapMessages = {
   appSource: "Application errors:     ",
@@ -26,7 +26,7 @@ async function mapAppModelKit(type) {
 }
 
 function compareMessages(errorsMap, msgPrefix) {
-  const allUcList = CompareTools.getAllUcList(errorsMap);
+  const allUcList = Tools.getAllUcList(errorsMap);
   let { appSource, appModelKit } = errorsMap;
 
   allUcList.forEach((appUc) => {
@@ -54,8 +54,8 @@ class CompareErrorsAndWarnings {
       appModelKit: await mapAppModelKit("warning"),
     };
 
-    CompareTools.compareErrorLists(errorsMap, ErrorsMapMessages);
-    CompareTools.compareWarningLists(warningsMap, WarningsMapMessages);
+    Tools.compareErrorLists(errorsMap, ErrorsMapMessages);
+    Tools.compareWarningLists(warningsMap, WarningsMapMessages);
 
     compareMessages(errorsMap, "Errors");
     compareMessages(warningsMap, "Warnings");

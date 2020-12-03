@@ -5,12 +5,12 @@ function compareLists(useCaseMap, msgConfig, msgHeader) {
   Object.keys(useCaseMap).forEach((ucTypeMap) => {
     ucLists[ucTypeMap] = Object.keys(useCaseMap[ucTypeMap]).sort();
   });
-  let ucInequals = CompareTools.getArraysDiff(...Object.values(ucLists));
+  let ucInequals = Tools.getArraysDiff(...Object.values(ucLists));
 
   if (ucInequals.length > 0) {
     console.log(chalk.red.underline.bold(msgHeader + " does not match!"));
     Object.keys(useCaseMap).forEach((ucTypeMap) => {
-      console.log(msgConfig[ucTypeMap] + CompareTools.highlightDiff(ucLists[ucTypeMap], ucInequals));
+      console.log(msgConfig[ucTypeMap] + Tools.highlightDiff(ucLists[ucTypeMap], ucInequals));
     });
     console.log("\n");
   } else {
@@ -18,7 +18,7 @@ function compareLists(useCaseMap, msgConfig, msgHeader) {
   }
 }
 
-const CompareTools = {
+const Tools = {
   getArraysDiff(...arrays) {
     let differences = new Set();
     for (let i = 0; i < arrays.length; i++) {
@@ -58,6 +58,10 @@ const CompareTools = {
     compareLists(warningsMap, msgConfig, "Warnings list");
   },
 
+  compareDaoLists(daoMap, msgConfig) {
+    compareLists(daoMap, msgConfig, "Dao list");
+  },
+
   getAllUcList(ucProfileMap) {
     let allUcList = new Set();
     Object.values(ucProfileMap).forEach((ucMap) => {
@@ -67,4 +71,4 @@ const CompareTools = {
   },
 };
 
-module.exports = CompareTools;
+module.exports = Tools;

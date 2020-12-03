@@ -1,6 +1,7 @@
 const UuAppModelKit = require("./uu-app-model-kit");
 const CompareConfig = require("../source-codes/compare-config");
 const UuBookKit = require("../helpers/uu-book-kit");
+const StringHelper = require("../helpers/string-helper");
 const Uu5StringHelper = require("../helpers/uu5string-helper");
 
 const ListObjectStoresUc = "uuAppObjectStore/list";
@@ -72,7 +73,7 @@ class UuSchema {
     if (limitsTable) {
       let limits = limitsTable.props.toObject().data;
       limits.forEach((limit) => {
-        this._limits[limit[0]] = parseInt(limit[1]);
+        this._limits[limit[0]] = StringHelper.parseNumber(limit[1]);
       });
     }
     return this._limits;
@@ -83,7 +84,13 @@ class UuSchema {
     let pageCode = this.getAttributes().pageCode;
     let pageData = await UuBookKit.loadPage(pageCode);
     let indexesTable = Uu5StringHelper.findComponentInPage(pageData, Uu5ComponentNames.indexes);
-
+    this._indexes = [];
+    if (indexesTable) {
+      let indexes = indexesTable.props.toObject().data;
+      indexes.forEach((index) => {
+        this._indexes.push(index[0].trim());
+      });
+    }
     return this._indexes;
   }
 
@@ -92,7 +99,14 @@ class UuSchema {
     let pageCode = this.getAttributes().pageCode;
     let pageData = await UuBookKit.loadPage(pageCode);
     let daoMethodsTable = Uu5StringHelper.findComponentInPage(pageData, Uu5ComponentNames.daoMethods);
-
+    this._daoMethods = [];
+    if (daoMethodsTable) {
+      let daoMethods = daoMethodsTable.props.toObject().data;
+      daoMethods.forEach((daoMethod) => {
+        let method = daoMethod[0].replace(/->.*/, "").replace(/, /g, ",").trim();
+        this._daoMethods.push(method);
+      });
+    }
     return this._daoMethods;
   }
 }

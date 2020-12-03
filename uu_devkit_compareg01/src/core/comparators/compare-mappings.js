@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const MappingsJson = require("../source-codes/mappings-json");
 const { UuCommand } = require("../uu-app-model-kit");
-const CompareTools = require("./compare-tools");
+const Tools = require("./tools");
 
 const UcMapMessages = {
   mappingsJson: "Mappings.json use cases:    ",
@@ -18,7 +18,7 @@ async function mapAppModelKit() {
 }
 
 function compareUcMethods(ucMethodMap) {
-  const allUcList = CompareTools.getAllUcList(ucMethodMap);
+  const allUcList = Tools.getAllUcList(ucMethodMap);
   let { mappingsJson, appModelKit } = ucMethodMap;
 
   allUcList.forEach((appUc) => {
@@ -44,7 +44,7 @@ class CompareMappings {
     };
 
     // compare use case lists
-    CompareTools.compareUseCaseLists(ucMethodMap, UcMapMessages);
+    Tools.compareUseCaseLists(ucMethodMap, UcMapMessages);
 
     // compare command methods
     compareUcMethods(ucMethodMap);
