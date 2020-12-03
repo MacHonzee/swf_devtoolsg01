@@ -12,7 +12,7 @@ function compareLists(useCaseMap, msgConfig, msgHeader) {
     Object.keys(useCaseMap).forEach((ucTypeMap) => {
       console.log(msgConfig[ucTypeMap] + Tools.highlightDiff(ucLists[ucTypeMap], ucInequals));
     });
-    console.log("\n");
+    console.log("");
   } else {
     console.log(chalk.green(msgHeader + " matches."));
   }

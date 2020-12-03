@@ -21,7 +21,7 @@ function loadConfigFile() {
 // TODO add some default configuration parameters (overriding of default behaviour)
 function getDefaults() {
   return {
-    isUsed: () => console.log("Using default compare configuration"),
+    isUsed: () => {},
     defaultLanguage: "en",
   };
 }

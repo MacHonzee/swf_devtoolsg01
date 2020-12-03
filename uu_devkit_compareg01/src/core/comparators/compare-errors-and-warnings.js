@@ -43,7 +43,7 @@ function compareMessages(errorsMap, msgPrefix) {
 
 class CompareErrorsAndWarnings {
   async process() {
-    console.log("Checking errors and warnings differences.");
+    console.log("Checking errors and warnings differences.\n");
 
     let errorsMap = {
       appSource: Errors.load(),
@@ -60,7 +60,7 @@ class CompareErrorsAndWarnings {
     compareMessages(errorsMap, "Errors");
     compareMessages(warningsMap, "Warnings");
 
-    console.log("Error and warning differences processed.");
+    console.log("Error and warning differences processed.\n");
   }
 }
 

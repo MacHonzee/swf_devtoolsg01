@@ -65,7 +65,7 @@ function compareDaos(daosMap) {
 
 class CompareDaos {
   async process() {
-    console.log("Checking Dao differences.");
+    console.log("Checking Dao differences.\n");
 
     let daosMap = {
       appSource: Daos.load(),
@@ -76,7 +76,7 @@ class CompareDaos {
 
     compareDaos(daosMap);
 
-    console.log("Dao differences processed.");
+    console.log("Dao differences processed.\n");
   }
 }
 

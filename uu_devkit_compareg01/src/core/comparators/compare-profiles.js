@@ -74,7 +74,7 @@ function compareUcProfileLists(ucProfileMap) {
 
 class CompareProfiles {
   async process() {
-    console.log("Checking profile differences.");
+    console.log("Checking profile differences.\n");
 
     // read all of profiles from all sources
     let ucProfileMap = {
@@ -92,7 +92,7 @@ class CompareProfiles {
     // compare profiles for each usecase
     compareUcProfileLists(ucProfileMap);
 
-    console.log("Profiles differences processed.");
+    console.log("Profiles differences processed.\n");
   }
 }
 

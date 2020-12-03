@@ -40,7 +40,7 @@ function compareValidationTypes(valTypesMap) {
 
 class CompareValidations {
   async process() {
-    console.log("Checking validation types differences.");
+    console.log("Checking validation types differences.\n");
 
     let valTypesMap = {
       appSource: ValidationTypes.load(),
@@ -51,7 +51,7 @@ class CompareValidations {
 
     compareValidationTypes(valTypesMap);
 
-    console.log("Validation types differences processed.");
+    console.log("Validation types differences processed.\n");
   }
 }
 

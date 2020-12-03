@@ -35,7 +35,7 @@ function compareUcMethods(ucMethodMap) {
 
 class CompareMappings {
   async process() {
-    console.log("Checking mappings differences.");
+    console.log("Checking mappings differences.\n");
 
     // read all method maps from sources
     let ucMethodMap = {
@@ -49,7 +49,7 @@ class CompareMappings {
     // compare command methods
     compareUcMethods(ucMethodMap);
 
-    console.log("Mappings differences processed.");
+    console.log("Mappings differences processed.\n");
   }
 }
 

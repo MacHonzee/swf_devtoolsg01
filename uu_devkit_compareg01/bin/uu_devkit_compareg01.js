@@ -44,7 +44,7 @@ Object.keys(Commands).forEach((cmdName) => {
 });
 
 yargs
-  .demandCommand(2, "Must provide a valid command!") // TODO Needs 2 instead of 1 due to some bug in yargs.
+  .demandCommand(2, "Must provide a valid command! Add parameter -h or --help to see all options.") // TODO Needs 2 instead of 1 due to some bug in yargs.
   .showHelpOnFail(false)
   .help("help")
   .alias("h", "help")
