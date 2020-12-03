@@ -51,8 +51,8 @@ const CompareConfig = {
   generate(forceGenerate) {
     let configPath = getConfigPath();
     if (!fs.existsSync(configPath) || forceGenerate) {
-      const configTemplate = fs.readFileSync("../templates/compare-config.js");
-      fs.writeFileSync(configPath, configTemplate);
+      let templatePath = path.join(__dirname, "..", "templates", "compare-config.js");
+      fs.writeFileSync(configPath, fs.readFileSync(templatePath));
       return path.resolve(configPath);
     }
   },

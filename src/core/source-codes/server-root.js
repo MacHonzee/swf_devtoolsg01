@@ -1,7 +1,7 @@
 const path = require("path");
 
 const ServerSuffix = "-server";
-const PossiblePaths = [".", "..", "../.."];
+const PossiblePaths = [["."], [".."], ["..", ".."], ["..", "..", ".."]];
 
 // TODO enable setting server root as a parameter from console, for example
 // npm run compareDoc --root=../..
@@ -18,10 +18,10 @@ const ServerRoot = {
     }
 
     for (let pathPart of PossiblePaths) {
-      let fullPath = path.join(current, pathPart);
-      let dirName = path.dirname(fullPath);
+      let fullPath = path.join(current, ...pathPart);
+      let dirName = path.resolve(fullPath);
       if (dirName.endsWith(ServerSuffix)) {
-        this._serverRoot = fullPath;
+        this._serverRoot = dirName;
         return this._serverRoot;
       }
     }
