@@ -1,9 +1,9 @@
 {
-  "name": "uu_devkit_compareg01",
+  "name": "swf_devtoolsg01",
   "version": "0.1.0",
   "description": "Scripts for comparison of UAF Node.js applications and their documentation.",
   "main": "index.js",
-  "repository": "https://github.com/MacHonzee/uu_devkit_compareg01.git",
+  "repository": "https://github.com/MacHonzee/swf_devtoolsg01.git",
   "dependencies": {
     "chalk": "^2.4.0",
     "uu_appg01_core-appclient": "^5.1.0",
@@ -35,10 +35,10 @@
     "src",
     "dist*"
   ],
-  "author": "Jan Rudolf",
+  "author": "Jan Rudolf, 5-8385-1",
   "license": "ISC",
   "bin": {
-    "uu_devkit_compareg01": "./bin/uu_devkit_compareg01.js"
+    "compareDoc": "bin/compare-doc.js"
   },
   "prettier": {
     "printWidth": 120
