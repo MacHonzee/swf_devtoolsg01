@@ -48,9 +48,6 @@ function compareDaos(daosMap) {
         console.log("");
       }
 
-      // FIXME this is strange, check this:
-      // Dao indexes from source code:    unique awid, personalCardId, unique awid, uuIdentity
-      // Dao indexes from uuAppModelKit:  unique awid, id, unique awid, personalCardId, uuIdentity
       let obviousAppSourceIndexes = getObviousIndexes(appSourceDao);
       let obviousAppModelIndexes = getObviousIndexes(appModelDao);
       let indexesDiff = Tools.getArraysDiff(obviousAppSourceIndexes, obviousAppModelIndexes);

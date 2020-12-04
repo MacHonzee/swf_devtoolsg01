@@ -7,7 +7,6 @@ const UuAppJson = require("../source-codes/uuapp-json");
 const CompareConfig = require("../source-codes/compare-config");
 const UuBookKit = require("../helpers/uu-book-kit");
 
-// TODO the constants below might be needed in compare-config
 const AppPageCode = "uuApp";
 
 const AppModelKitBasicInfo = {
@@ -28,8 +27,6 @@ class UuAppModelKit {
 
   async getBaseUri() {
     if (this._baseUri) return this._baseUri;
-
-    // TODO add getting uuAppModelKitBaseUri from CompareConfig
 
     let bookkitUri = UuBookKit.getDocUri();
 
@@ -56,8 +53,6 @@ class UuAppModelKit {
 
   async getCurrentSubAppId() {
     if (this._subAppId) return this._subAppId;
-
-    // TODO add getting subAppId from CompareConfig
 
     let appClient = await this.getAppClient();
     let subAppListResponse = await appClient.get(ListSubAppsUc);

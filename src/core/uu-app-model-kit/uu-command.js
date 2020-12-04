@@ -3,10 +3,8 @@ const CompareConfig = require("../source-codes/compare-config");
 const UuBookKit = require("../helpers/uu-book-kit");
 const Algorithm = require("../helpers/uu5-algorithm-helper");
 
-// TODO add possiblity ty override in CompareConfig
 const ListUc = "uuCommand/list";
 
-// TODO add to config + extend to more common possibilities
 const ValidationTypesRegex = /Validation \(dtoInType\)/;
 const Uu5StringPreRegex = new RegExp("<uu5string.pre>(.*)</uu5string.pre>", "s");
 
@@ -21,7 +19,6 @@ class UuCommand {
     this._validation = null;
   }
 
-  // TODO check if current Jest config supports this syntax, it might not
   static _list = null;
   static _commandMap = null;
 
@@ -78,7 +75,7 @@ class UuCommand {
 
     let foundSection = pageData.body.find((section) => section.content.match(ValidationTypesRegex));
     if (foundSection) {
-      // TODO uu5string does not parse uu5string.pre content properly
+      // TODO uu5string does not parse uu5string.pre content properly, verify this
       const matches = foundSection.content.match(Uu5StringPreRegex);
       if (matches && matches[1]) {
         this._validation = {

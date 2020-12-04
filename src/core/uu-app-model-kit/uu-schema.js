@@ -22,7 +22,6 @@ class UuSchema {
     this._indexes = null;
   }
 
-  // TODO check if current Jest config supports this syntax, it might not
   static _list = null;
   static _schemaMap = null;
 

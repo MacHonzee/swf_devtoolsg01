@@ -22,15 +22,13 @@ function loadConfigFile() {
   return config;
 }
 
-// TODO add some default configuration parameters (overriding of default behaviour)
 function getDefaults() {
   return {
-    isUsed: () => {},
     defaultLanguage: "en",
   };
 }
 
-// TODO it needs recursive merge of objects
+// TODO it will need recursive merge of objects after we add some nested structures into config
 function mergeConfigs(appConfig, defaultConfig) {
   return Object.assign({}, defaultConfig, appConfig);
 }
