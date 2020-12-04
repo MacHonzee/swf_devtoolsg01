@@ -1,5 +1,5 @@
 const readline = require("readline");
-const OidcToken = require("../../../node_modules/uu_appg01_devkit-common/src/scripts/oidc-token");
+const OidcToken = require("uu_appg01_devkit-common/src/scripts/oidc-token");
 const { AppClient } = require("uu_appg01_core-appclient");
 const { UriBuilder } = require("uu_appg01_core-uri");
 const ServerRoot = require("../source-codes/server-root");

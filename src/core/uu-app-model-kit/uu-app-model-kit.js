@@ -1,4 +1,4 @@
-const OidcToken = require("../../../node_modules/uu_appg01_devkit-common/src/scripts/oidc-token");
+const OidcToken = require("uu_appg01_devkit-common/src/scripts/oidc-token");
 const { AppClient } = require("uu_appg01_core-appclient");
 const Uu5StringHelper = require("../helpers/uu5string-helper");
 const { normalizeCode } = require("../helpers/string-helper");
