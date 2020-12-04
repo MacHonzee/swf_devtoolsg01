@@ -29,7 +29,7 @@ function postinstall() {
 
   let newCompareConfig = CompareConfig.generate();
   if (newCompareConfig) {
-    console.log(`Generated compare-config.js to path: "${newCompareConfig}"\n`);
+    console.log(`Generated compare-config.js to path: ${newCompareConfig} \n`);
   }
 }
 

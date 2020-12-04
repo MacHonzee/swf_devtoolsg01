@@ -25,6 +25,10 @@ function getLimitsString(dao) {
   return Object.keys(dao.limits).map((limit) => `${limit}: ${dao.limits[limit]}`);
 }
 
+function getObviousIndexes(dao) {
+  return dao.indexes.map((index) => `"${index}"`);
+}
+
 function compareDaos(daosMap) {
   const allDaosList = Tools.getAllUcList(daosMap);
   let { appSource, appModelKit } = daosMap;
@@ -44,11 +48,16 @@ function compareDaos(daosMap) {
         console.log("");
       }
 
-      let indexesDiff = Tools.getArraysDiff(appSourceDao.indexes, appModelDao.indexes);
+      // FIXME this is strange, check this:
+      // Dao indexes from source code:    unique awid, personalCardId, unique awid, uuIdentity
+      // Dao indexes from uuAppModelKit:  unique awid, id, unique awid, personalCardId, uuIdentity
+      let obviousAppSourceIndexes = getObviousIndexes(appSourceDao);
+      let obviousAppModelIndexes = getObviousIndexes(appModelDao);
+      let indexesDiff = Tools.getArraysDiff(obviousAppSourceIndexes, obviousAppModelIndexes);
       if (indexesDiff.length > 0) {
         console.log(chalk.red.underline.bold("Differences in indexes found for dao: " + dao));
-        console.log("Dao indexes from source code:    " + Tools.highlightDiff(appSourceDao.indexes, indexesDiff));
-        console.log("Dao indexes from uuAppModelKit:  " + Tools.highlightDiff(appModelDao.indexes, indexesDiff));
+        console.log("Dao indexes from source code:    " + Tools.highlightDiff(obviousAppSourceIndexes, indexesDiff));
+        console.log("Dao indexes from uuAppModelKit:  " + Tools.highlightDiff(obviousAppModelIndexes, indexesDiff));
         console.log("");
       }
 

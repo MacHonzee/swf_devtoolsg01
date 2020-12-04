@@ -14,7 +14,7 @@ class MockDaoAbstract {
 
   createIndex(keys, opts) {
     let indexString = Object.keys(keys).join(", ");
-    if (opts.unique) indexString = "unique " + indexString;
+    if (opts && opts.unique) indexString = "unique " + indexString;
     this._indexes.push(indexString);
   }
 
