@@ -27,6 +27,8 @@ class Warnings {
     if (this._warnings) return this._warnings;
     let warningsPath = path.join(ServerRoot.root, ...WarningsPath);
     this._warnings = {};
+    if (!fs.existsSync(warningsPath)) return this._warnings;
+
     fs.readdirSync(warningsPath).forEach((errorFile) => {
       let warningFilePath = path.join(warningsPath, errorFile);
       let warnings = require(warningFilePath);
