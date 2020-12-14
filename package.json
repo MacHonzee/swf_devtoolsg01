@@ -1,6 +1,6 @@
 {
   "name": "swf_devtoolsg01",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scripts for comparison of UAF Node.js applications and their documentation.",
   "main": "index.js",
   "repository": "https://github.com/MacHonzee/swf_devtoolsg01.git",
