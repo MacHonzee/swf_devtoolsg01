@@ -3,7 +3,8 @@ const path = require("path");
 const { Loader } = require("uu_appg01_core-utils");
 const ServerRoot = require("./server-root");
 
-const PersistenceJsonPath = ["app", "config", "persistence.json"];
+const PersistenceJsonName = "persistence.json";
+const PersistenceJsonPath = ["app", "config", PersistenceJsonName];
 const DaoLimits = ["maxNoi", "maxSoi", "maxSob"];
 
 // eslint-disable-next-line no-unused-vars
@@ -91,6 +92,7 @@ class Daos {
         let schemaCfg = dbConfig.schemaMap[schema];
         let realization = Loader.loadRealization(ServerRoot.root, schemaCfg.realization);
         this._daos[schema] = {
+          source: { path: persJsonPath, name: PersistenceJsonName, sourceType: "file" },
           limits: loadDaoLimits(schemaCfg),
           methods: loadDaoMethods(realization),
           indexes: loadIndexes(realization),

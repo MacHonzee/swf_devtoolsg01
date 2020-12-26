@@ -24,7 +24,10 @@ class Errors {
           if (typeof classType === "string") return;
           let exceptionClass = new classType();
           // TODO add http status after there is some structured support from Algorithm component
-          this._errors[exceptionClass.code] = exceptionClass.message;
+          this._errors[exceptionClass.code] = {
+            source: { path: errorFilePath, name: errorFile, sourceType: "file" },
+            message: exceptionClass.message,
+          };
         });
       });
     });

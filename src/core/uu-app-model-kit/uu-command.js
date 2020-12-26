@@ -17,6 +17,7 @@ class UuCommand {
     this._errors = null;
     this._warnings = null;
     this._validation = null;
+    this._source = null;
   }
 
   static _list = null;
@@ -54,6 +55,14 @@ class UuCommand {
 
   getProfiles() {
     return this._attributes.uuAppProfileRelatedList;
+  }
+
+  async getSource() {
+    if (this._source) return this._source;
+    let pageCode = this.getAttributes().pageCode;
+    this._source = await UuBookKit.loadPage(pageCode);
+    this._source.sourceType = "page";
+    return this._source;
   }
 
   async getErrors() {

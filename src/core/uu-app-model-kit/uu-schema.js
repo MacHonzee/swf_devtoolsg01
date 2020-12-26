@@ -20,6 +20,7 @@ class UuSchema {
     this._daoMethods = null;
     this._limits = null;
     this._indexes = null;
+    this._source = null;
   }
 
   static _list = null;
@@ -63,10 +64,17 @@ class UuSchema {
     return this._attributes;
   }
 
+  async getSource() {
+    if (this._source) return this._source;
+    let pageCode = this.getAttributes().pageCode;
+    this._source = await UuBookKit.loadPage(pageCode);
+    this._source.sourceType = "page";
+    return this._source;
+  }
+
   async getLimits() {
     if (this._limits) return this._limits;
-    let pageCode = this.getAttributes().pageCode;
-    let pageData = await UuBookKit.loadPage(pageCode);
+    let pageData = await this.getSource();
     let limitsTable = Uu5StringHelper.findComponentInPage(pageData, Uu5ComponentNames.limits);
     this._limits = {};
     if (limitsTable) {
@@ -80,8 +88,7 @@ class UuSchema {
 
   async getIndexes() {
     if (this._indexes) return this._indexes;
-    let pageCode = this.getAttributes().pageCode;
-    let pageData = await UuBookKit.loadPage(pageCode);
+    let pageData = await this.getSource();
     let indexesTable = Uu5StringHelper.findComponentInPage(pageData, Uu5ComponentNames.indexes);
     this._indexes = [];
     if (indexesTable) {
@@ -95,8 +102,7 @@ class UuSchema {
 
   async getDaoMethods() {
     if (this._daoMethods) return this._daoMethods;
-    let pageCode = this.getAttributes().pageCode;
-    let pageData = await UuBookKit.loadPage(pageCode);
+    let pageData = await this.getSource();
     let daoMethodsTable = Uu5StringHelper.findComponentInPage(pageData, Uu5ComponentNames.daoMethods);
     this._daoMethods = [];
     if (daoMethodsTable) {

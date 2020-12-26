@@ -13,6 +13,7 @@ async function mapAppModelKit() {
   let schemaMap = {};
   for (let schema of Object.keys(schemas)) {
     schemaMap[schema] = {
+      source: await schemas[schema].getSource(),
       limits: await schemas[schema].getLimits(),
       methods: await schemas[schema].getDaoMethods(),
       indexes: await schemas[schema].getIndexes(),

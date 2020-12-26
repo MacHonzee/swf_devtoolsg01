@@ -25,7 +25,7 @@ const Uu5AlgorithmHelper = {
     forEachStatement(algData, (step) => {
       if (step.type === type) {
         let errCode = errPrefix + step.code;
-        errMap[errCode] = step.message;
+        errMap[errCode] = { message: step.message };
       }
     });
     return errMap;

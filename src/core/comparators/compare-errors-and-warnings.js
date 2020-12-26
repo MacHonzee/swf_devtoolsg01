@@ -20,7 +20,13 @@ async function mapAppModelKit(type) {
   for (let uc of Object.keys(mmdCommands)) {
     let loadMethod = type === "error" ? "getErrors" : "getWarnings";
     let cmdErrMap = await mmdCommands[uc][loadMethod]();
-    Object.assign(ucMap, cmdErrMap);
+    if (cmdErrMap) {
+      let source = await mmdCommands[uc].getSource();
+      Object.keys(cmdErrMap).forEach((cmdErr) => {
+        cmdErrMap[cmdErr].source = source;
+      });
+      Object.assign(ucMap, cmdErrMap);
+    }
   }
   return ucMap;
 }
@@ -30,8 +36,8 @@ function compareMessages(errorsMap, msgPrefix) {
   let { appSource, appModelKit } = errorsMap;
 
   allUcList.forEach((appUc) => {
-    let appSourceMsg = appSource[appUc];
-    let appModelKitMsg = appModelKit[appUc];
+    let appSourceMsg = appSource[appUc] ? appSource[appUc].message : "";
+    let appModelKitMsg = appModelKit[appUc] ? appModelKit[appUc].message : "";
     if (appSourceMsg !== appModelKitMsg) {
       console.log(chalk.red.underline.bold("Differences found for use case: " + appUc));
       console.log(msgPrefix + " from source code:    " + (appSourceMsg || ""));
